@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cc_surface">
+
+    <!-- ───────── Scrollable content ───────── -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- ░░ Header ░░ -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@drawable/bg_header_gradient">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="24dp"
+                    android:paddingTop="32dp"
+                    android:gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/title"
+                        style="@style/CC.HeaderTitle"
+                        android:text="Your Government"/>
+
+                    <TextView
+                        android:id="@+id/subTitle"
+                        style="@style/CC.BodySmall"
+                        android:text="All your representatives in one place"/>
+
+                    <!-- Location card (frosted) -->
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="0dp"
+                        android:foreground="?attr/selectableItemBackground"
+                        >
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:background="@drawable/bg_location_blur">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <View
+                                    android:layout_width="10dp"
+                                    android:layout_height="10dp"
+                                    android:background="@drawable/ic_green_dot"/>
+
+                                <TextView
+                                    style="@style/CC.Caption"
+                                    android:layout_marginStart="6dp"
+                                    android:text="Location Detected"/>
+                            </LinearLayout>
+
+                            <TextView
+                                style="@style/CC.TitleMedium"
+                                android:layout_marginTop="4dp"
+                                android:text="Sector 12, Noida"/>
+
+                            <TextView
+                                style="@style/CC.BodySmall"
+                                android:text="Gautam Buddha Nagar, UP"/>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            </FrameLayout>
+
+            <!-- ░░ Section headline ░░ -->
+            <TextView
+                android:id="@+id/sectionHeadline"
+                style="@style/CC.TitleMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:text="Your Representatives"/>
+
+            <!-- ░░ Representatives list ░░ -->
+            <LinearLayout
+                android:id="@+id/repContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- === One representative card (re-use / inflate for list) === -->
+                <include layout="@layout/view_rep_card" />
+                <include layout="@layout/view_rep_card" />
+                <include layout="@layout/view_rep_card" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- ───────── Bottom Navigation ───────── -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/cc_surface"
+        app:itemIconTint="@color/cc_nav_selector"
+        app:itemTextColor="@color/cc_nav_selector"
+        app:menu="@menu/menu_bottom_nav"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

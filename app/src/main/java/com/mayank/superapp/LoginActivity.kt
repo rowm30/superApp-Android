@@ -11,11 +11,9 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.mayank.superapp.databinding.ActivityLoginBinding
 import kotlinx.coroutines.launch
-
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -70,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
         preferencesHelper = PreferencesHelper(this)
 
         // IMPORTANT: Replace with your actual Web Client ID
-        val webClientId = "135755435543-h985hivmurvo17rrkatsat61i5cpi207.apps.googleusercontent.com" // <-- Make sure this is set!
+        val webClientId = "135755435543-h985hivmurvo17rrkatsat61i5cpi207.apps.googleusercontent.com"
         Log.d(TAG, "Configuring Google Sign-In with Web Client ID: $webClientId")
 
         // Configure Google Sign-In
@@ -81,8 +79,7 @@ class LoginActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        binding.signInButton.setSize(SignInButton.SIZE_WIDE)
-        binding.signInButton.setOnClickListener {
+        binding.btnContinueGoogle.setOnClickListener {
             Log.d(TAG, "Sign-in button clicked")
             signIn()
         }
@@ -99,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
         Log.d(TAG, "Backend URL: ${RetrofitClient.BASE_URL}")
 
         binding.progressBar.visibility = View.VISIBLE
-        binding.signInButton.visibility = View.GONE
+        binding.btnContinueGoogle.visibility = View.GONE
 
         lifecycleScope.launch {
             try {
@@ -133,7 +130,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity, "Network error: ${e.message}", Toast.LENGTH_SHORT).show()
             } finally {
                 binding.progressBar.visibility = View.GONE
-                binding.signInButton.visibility = View.VISIBLE
+                binding.btnContinueGoogle.visibility = View.VISIBLE
             }
         }
     }

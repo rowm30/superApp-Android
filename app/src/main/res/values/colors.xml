@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="cc_surface">#FFFFFF</color>
+    <color name="cc_onSurface">#212121</color>
+    <color name="cc_onSurfaceLight">#616161</color>
+    <color name="cc_divider">#1FFFFFFF</color>
+    <color name="cc_positive">#00A043</color>
+    <color name="cc_nav_selector">#1B0E43</color>
+    <color name="white_transparent_20">#FF7A24</color>
+    <color name="pulse_green">#4CAF50</color>
+
 </resources>

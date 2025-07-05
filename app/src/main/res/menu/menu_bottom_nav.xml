@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_officials"
+        android:icon="@drawable/ic_officials"
+        android:title="Officials"/>
+    <item
+        android:id="@+id/nav_issues"
+        android:icon="@drawable/ic_issues"
+        android:title="Issues"/>
+    <item
+        android:id="@+id/nav_services"
+        android:icon="@drawable/ic_services"
+        android:title="Services"/>
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Profile"/>
+</menu>
