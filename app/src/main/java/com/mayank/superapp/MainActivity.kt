@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Button
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -54,6 +55,28 @@ class MainActivity : AppCompatActivity() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+        // Setup bottom navigation
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_profile -> {
+                    binding.scrollContent.visibility = View.GONE
+                    findViewById<View>(R.id.profileTab).visibility = View.VISIBLE
+                    true
+                }
+                else -> {
+                    findViewById<View>(R.id.profileTab).visibility = View.GONE
+                    binding.scrollContent.visibility = View.VISIBLE
+                    true
+                }
+            }
+        }
+        binding.bottomNav.selectedItemId = R.id.nav_officials
+
+        // Setup logout button in profile tab
+        findViewById<View>(R.id.profileTab)?.findViewById<Button>(R.id.btnLogout)?.setOnClickListener {
+            logout()
+        }
 
         // Request location permission
         locationPermissionRequest.launch(
