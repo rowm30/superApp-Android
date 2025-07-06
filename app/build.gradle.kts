@@ -55,5 +55,9 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.activity.ktx)
+    implementation(libs.retrofit.v290)
+    implementation(libs.converter.gson.v290)
+    implementation(libs.logging.interceptor.v4110)
+    implementation(libs.kotlinx.coroutines.android)
 
 }

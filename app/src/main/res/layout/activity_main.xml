@@ -96,19 +96,21 @@
                             </LinearLayout>
 
                             <TextView
+                                android:id="@+id/tvLocationArea"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Sector 12, Noida"
+                                android:text="Detecting location..."
                                 android:textColor="@android:color/white"
                                 android:textSize="16sp"
                                 android:textStyle="bold"
                                 android:fontFamily="sans-serif-medium"/>
 
                             <TextView
+                                android:id="@+id/tvLocationConstituency"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Gautam Buddha Nagar, UP"
+                                android:text="Please wait..."
                                 android:textColor="@android:color/white"
                                 android:textSize="14sp"
                                 android:alpha="0.8"
@@ -131,250 +133,17 @@
                 android:textStyle="bold"/>
 
             <!-- ░░ Representatives list ░░ -->
+            <!-- THIS IS WHERE YOU NEED TO ADD THE ID -->
             <LinearLayout
+                android:id="@+id/representativesContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <!-- === Representative card template === -->
-                <!-- Copy / inflate this block for each representative -->
+                <!-- The template cards will be removed and replaced dynamically -->
+                <!-- You can keep them for preview in Android Studio -->
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardElevation="3dp"
-                    app:cardCornerRadius="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <!-- Header row -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:background="@drawable/bg_round_purple"
-                                android:gravity="center"
-                                android:text="MLA"
-                                android:textColor="@android:color/white"
-                                android:textStyle="bold"/>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:text="Pankaj Singh"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#212121"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <!-- Designation -->
-                                <TextView
-                                    android:text="Member of Legislative Assembly"
-                                    android:textSize="12sp"
-                                    android:textColor="#616161"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <!-- Status -->
-                                <TextView
-                                    android:text="• In Office"
-                                    android:textSize="12sp"
-                                    android:textColor="#00A043"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <!-- Divider -->
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="12dp"
-                            android:background="#1FFFFFFF"/>
-
-                        <!-- Meta row -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:orientation="horizontal"
-                            android:weightSum="3">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="1.2K\nIssues"
-                                android:textAlignment="center"
-                                android:textSize="12sp"
-                                android:textColor="#FF6B35"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="68%\nResolved"
-                                android:textAlignment="center"
-                                android:textSize="12sp"
-                                android:textColor="#FF6B35"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="3.9\nRating"
-                                android:textAlignment="center"
-                                android:textSize="12sp"
-                                android:textColor="#FF6B35"
-                                android:textStyle="bold"/>
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardElevation="3dp"
-                    app:cardCornerRadius="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <!-- Header row -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                            <!-- Badge -->
-                            <TextView
-                                android:layout_width="48dp"
-                                android:layout_height="48dp"
-                                android:background="@drawable/bg_round_purple"
-                            android:gravity="center"
-                            android:text="MP"
-                            android:textColor="@android:color/white"
-                            android:textStyle="bold"/>
-
-                            <!-- Info block -->
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="12dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:text="Dr. Mahesh Sharma"
-                                    android:textSize="16sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#212121"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <TextView
-                                    android:text="Member of Parliament"
-                                    android:textSize="12sp"
-                                    android:textColor="#616161"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-
-                                <TextView
-                                    android:text="• In Office"
-                                    android:textSize="12sp"
-                                    android:textColor="#00A043"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
-                            </LinearLayout>
-
-                            <!-- Chevron -->
-
-                        </LinearLayout>
-
-                        <!-- Divider -->
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginTop="12dp"
-                            android:background="#1FFFFFFF"/>
-
-                        <!-- Meta row -->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="12dp"
-                            android:orientation="horizontal"
-                            android:weightSum="3">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="847\nIssues"
-                                android:textAlignment="center"
-                                android:textSize="12sp"
-                                android:textColor="#FF6B35"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="72%\nResolved"
-                                android:textAlignment="center"
-                                android:textSize="12sp"
-                                android:textColor="#FF6B35"
-                                android:textStyle="bold"/>
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:text="4.2\nRating"
-                                android:textAlignment="center"
-                                android:textSize="12sp"
-                                android:textColor="#FF6B35"
-                                android:textStyle="bold"/>
-                            <TextView
-                                android:id="@+id/tvLocation"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Location will appear here"
-                                android:textSize="16sp"
-                                android:layout_gravity="center"
-                                android:padding="20dp" />
-
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <!-- ‼️ Duplicate / generate more cards here for other reps -->
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
