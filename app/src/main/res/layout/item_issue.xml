@@ -14,14 +14,20 @@
 
         <TextView
             android:id="@+id/tvTitle"
+            style="@style/CC.TitleMedium"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold" />
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tvReporter"
+            style="@style/CC.BodySmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/tvStatus"
+            style="@style/CC.Caption"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Status" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

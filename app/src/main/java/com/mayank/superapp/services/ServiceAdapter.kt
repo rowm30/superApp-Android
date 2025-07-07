@@ -23,6 +23,8 @@ class ServiceAdapter(
     inner class ServiceViewHolder(private val binding: ItemServiceBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Service) {
             binding.tvName.text = item.name
+            binding.tvDepartment.text = item.department.name
+            binding.tvDesc.text = item.description
             binding.root.setOnClickListener { onClick(item) }
         }
     }

@@ -20,6 +20,9 @@ class ServicesActivity : AppCompatActivity() {
         binding = ActivityServicesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         adapter = ServiceAdapter { service ->
             val intent = Intent(this, ServiceDetailActivity::class.java)
             intent.putExtra(ServiceDetailActivity.EXTRA_ID, service.id)
@@ -37,5 +40,13 @@ class ServicesActivity : AppCompatActivity() {
                 binding.swipeRefresh.isRefreshing = state.loading
             }
         }
+    }
+
+    override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

@@ -26,6 +26,7 @@ class IssueAdapter(
         fun bind(item: Issue) {
             binding.tvTitle.text = item.title
             binding.tvStatus.text = item.status.name
+            binding.tvReporter.text = item.reporterName
             binding.root.setOnClickListener { onClick(item) }
         }
     }
