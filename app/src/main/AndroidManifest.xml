@@ -24,6 +24,19 @@
             android:exported="false" />
 
         <activity
+            android:name="com.mayank.superapp.issues.IssuesActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.mayank.superapp.issues.IssueDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.mayank.superapp.services.ServicesActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.mayank.superapp.services.ServiceDetailActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

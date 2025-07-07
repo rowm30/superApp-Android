@@ -10,5 +10,7 @@
     <color name="cc_nav_selector">#1B0E43</color>
     <color name="white_transparent_20">#FF7A24</color>
     <color name="pulse_green">#4CAF50</color>
+    <color name="cc_upvote">#4CAF50</color>
+    <color name="cc_downvote">#F44336</color>
 
 </resources>
