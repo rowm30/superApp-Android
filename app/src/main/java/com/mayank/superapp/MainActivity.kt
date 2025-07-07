@@ -22,6 +22,7 @@ import com.google.android.gms.location.LocationServices
 import com.mayank.superapp.RetrofitClient
 import com.mayank.superapp.SittingMember
 import com.mayank.superapp.databinding.ActivityMainBinding
+import androidx.fragment.app.Fragment
 import kotlinx.coroutines.launch
 import android.view.LayoutInflater
 import android.graphics.drawable.GradientDrawable
@@ -32,6 +33,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var preferencesHelper: PreferencesHelper
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private val issuesFragment = com.mayank.superapp.issues.IssuesFragment()
+    private val servicesFragment = com.mayank.superapp.services.ServicesFragment()
 
     private var currentLatitude: Double = 0.0
     private var currentLongitude: Double = 0.0
@@ -107,14 +111,19 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNav.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_profile -> {
-                    binding.scrollContent.visibility = View.GONE
-                    findViewById<View>(R.id.profileTab).visibility = View.VISIBLE
-                    loadUserProfile()
+                    showProfile()
+                    true
+                }
+                R.id.nav_issues -> {
+                    showFragment(issuesFragment)
+                    true
+                }
+                R.id.nav_services -> {
+                    showFragment(servicesFragment)
                     true
                 }
                 else -> {
-                    findViewById<View>(R.id.profileTab).visibility = View.GONE
-                    binding.scrollContent.visibility = View.VISIBLE
+                    showOfficials()
                     true
                 }
             }
@@ -219,6 +228,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        // ensure the main tab is highlighted when returning from other screens
+        binding.bottomNav.selectedItemId = R.id.nav_officials
+    }
+
     private fun updateConstituencyDisplay(constituency: String) {
         runOnUiThread {
             // Update the location area name
@@ -315,5 +330,27 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    private fun showProfile() {
+        binding.fragmentContainer.visibility = View.GONE
+        binding.scrollContent.visibility = View.GONE
+        findViewById<View>(R.id.profileTab).visibility = View.VISIBLE
+        loadUserProfile()
+    }
+
+    private fun showOfficials() {
+        binding.fragmentContainer.visibility = View.GONE
+        findViewById<View>(R.id.profileTab).visibility = View.GONE
+        binding.scrollContent.visibility = View.VISIBLE
+    }
+
+    private fun showFragment(fragment: androidx.fragment.app.Fragment) {
+        findViewById<View>(R.id.profileTab).visibility = View.GONE
+        binding.scrollContent.visibility = View.GONE
+        binding.fragmentContainer.visibility = View.VISIBLE
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .commit()
     }
 }
