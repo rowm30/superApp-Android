@@ -279,6 +279,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadUserProfile() {
+        findViewById<TextView>(R.id.tvEmail)?.text = preferencesHelper.getUserEmail()
+        findViewById<TextView>(R.id.tvName)?.text = preferencesHelper.getUserName()
+
         lifecycleScope.launch {
             try {
                 val user = RetrofitClient.userService.getCurrentUser()

@@ -22,4 +22,20 @@ class PreferencesHelper(context: Context) {
     fun isLoggedIn(): Boolean {
         return getAuthToken() != null
     }
+
+    fun saveUserEmail(email: String) {
+        prefs.edit().putString("user_email", email).apply()
+    }
+
+    fun getUserEmail(): String? {
+        return prefs.getString("user_email", null)
+    }
+
+    fun saveUserName(name: String) {
+        prefs.edit().putString("user_name", name).apply()
+    }
+
+    fun getUserName(): String? {
+        return prefs.getString("user_name", null)
+    }
 }

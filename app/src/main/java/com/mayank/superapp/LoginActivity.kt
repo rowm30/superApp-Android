@@ -114,6 +114,8 @@ class LoginActivity : AppCompatActivity() {
                     response.body()?.data?.let { jwt ->
                         Log.d(TAG, "Auth OK – User: ${jwt.user.email}")
                         preferencesHelper.saveAuthToken(jwt.accessToken)
+                        preferencesHelper.saveUserEmail(jwt.user.email)
+                        preferencesHelper.saveUserName(jwt.user.name)
                         navigateToMain()
                     } ?: run {
                         Toast.makeText(this@LoginActivity, "Empty payload", Toast.LENGTH_SHORT).show()
