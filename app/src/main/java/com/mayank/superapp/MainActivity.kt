@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         preferencesHelper = PreferencesHelper(this)
+        RetrofitClient.setPreferencesHelper(preferencesHelper)
 
         // Check if user is logged in
         if (!preferencesHelper.isLoggedIn()) {
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_profile -> {
                     binding.scrollContent.visibility = View.GONE
                     findViewById<View>(R.id.profileTab).visibility = View.VISIBLE
+                    loadUserProfile()
                     true
                 }
                 else -> {
@@ -337,6 +339,19 @@ class MainActivity : AppCompatActivity() {
         cardView.addView(cardContent)
 
         return cardView
+    }
+
+    private fun loadUserProfile() {
+        lifecycleScope.launch {
+            try {
+                val user = RetrofitClient.userService.getCurrentUser()
+                findViewById<TextView>(R.id.tvName)?.text = user.name
+                findViewById<TextView>(R.id.tvEmail)?.text = user.email
+            } catch (e: Exception) {
+                e.printStackTrace()
+                Toast.makeText(this@MainActivity, "Failed to load profile", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun createCircleDrawable(color: String): GradientDrawable {
