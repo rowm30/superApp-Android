@@ -36,6 +36,52 @@ class MainActivity : AppCompatActivity() {
     private var currentLatitude: Double = 0.0
     private var currentLongitude: Double = 0.0
 
+    // Sample representatives shown when API calls fail or return empty
+    private val sampleMembers = listOf(
+        SittingMember(
+            id = 1,
+            lastName = "Kumar",
+            nameOfMember = "Arun Kumar",
+            partyName = "Demo Party",
+            constituency = "Model Town",
+            state = "Delhi",
+            membershipStatus = "In Office",
+            lokSabhaTerms = 2,
+            district = "New Delhi",
+            latitude = null,
+            longitude = null,
+            designation = "MP"
+        ),
+        SittingMember(
+            id = 2,
+            lastName = "Sharma",
+            nameOfMember = "Sunita Sharma",
+            partyName = "Example Party",
+            constituency = "Gomti Nagar",
+            state = "Uttar Pradesh",
+            membershipStatus = "In Office",
+            lokSabhaTerms = 1,
+            district = "Lucknow",
+            latitude = null,
+            longitude = null,
+            designation = "MLA"
+        ),
+        SittingMember(
+            id = 3,
+            lastName = "Verma",
+            nameOfMember = "Rakesh Verma",
+            partyName = "Administration",
+            constituency = "Kanpur",
+            state = "Uttar Pradesh",
+            membershipStatus = "Serving",
+            lokSabhaTerms = 0,
+            district = "Kanpur",
+            latitude = null,
+            longitude = null,
+            designation = "DM"
+        )
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -147,14 +193,19 @@ class MainActivity : AppCompatActivity() {
                     // Fetch sitting members for this constituency
                     val sittingMembers = RetrofitClient.api.getSittingMembers(constituency)
 
-                    // Update UI with representatives
-                    displayRepresentatives(sittingMembers)
+                    // Update UI with representatives or show samples if none
+                    if (sittingMembers.isNotEmpty()) {
+                        displayRepresentatives(sittingMembers)
+                    } else {
+                        displayRepresentatives(sampleMembers)
+                    }
                 } else {
                     Toast.makeText(
                         this@MainActivity,
                         "No constituency found for your location",
                         Toast.LENGTH_SHORT
                     ).show()
+                    displayRepresentatives(sampleMembers)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -163,6 +214,7 @@ class MainActivity : AppCompatActivity() {
                     "Error fetching data: ${e.message}",
                     Toast.LENGTH_LONG
                 ).show()
+                displayRepresentatives(sampleMembers)
             }
         }
     }
@@ -207,136 +259,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createRepresentativeCard(member: SittingMember): CardView {
-        val cardView = CardView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                setMargins(0, 0, 0, 16)
-            }
-            radius = 16f
-            cardElevation = 3f
+        val inflater = LayoutInflater.from(this)
+        val cardView = inflater.inflate(R.layout.view_rep_card, null) as CardView
+
+        cardView.findViewById<TextView>(R.id.badge)?.text = member.designation ?: "MP"
+        cardView.findViewById<TextView>(R.id.repName)?.text = member.nameOfMember
+
+        val designationText = when (member.designation) {
+            "MP" -> "Member of Parliament"
+            "MLA" -> "Member of Legislative Assembly"
+            "DM" -> "District Magistrate"
+            else -> "Representative"
         }
-
-        // Create the card content
-        val cardContent = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            setPadding(16, 16, 16, 16)
-        }
-
-        // Header row
-        val headerRow = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            gravity = android.view.Gravity.CENTER_VERTICAL
-        }
-
-        // Badge
-        val badge = TextView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(48, 48)
-            background = createCircleDrawable("#7B68EE") // Purple color
-            gravity = android.view.Gravity.CENTER
-            text = "MP"
-            setTextColor(Color.WHITE)
-            setTypeface(null, android.graphics.Typeface.BOLD)
-        }
-
-        // Info block
-        val infoBlock = LinearLayout(this).apply {
-            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-            orientation = LinearLayout.VERTICAL
-            setPadding(12, 0, 0, 0)
-        }
-
-        // Name
-        val nameText = TextView(this).apply {
-            text = member.nameOfMember
-            textSize = 16f
-            setTypeface(null, android.graphics.Typeface.BOLD)
-            setTextColor(Color.parseColor("#212121"))
-        }
-
-        // Designation
-        val designationText = TextView(this).apply {
-            text = "Member of Parliament - ${member.constituency}"
-            textSize = 12f
-            setTextColor(Color.parseColor("#616161"))
-        }
-
-        // Party and Status
-        val partyStatusText = TextView(this).apply {
-            text = "• ${member.partyName} • ${member.membershipStatus}"
-            textSize = 12f
-            setTextColor(Color.parseColor("#00A043"))
-        }
-
-        infoBlock.addView(nameText)
-        infoBlock.addView(designationText)
-        infoBlock.addView(partyStatusText)
-
-        headerRow.addView(badge)
-        headerRow.addView(infoBlock)
-
-        // Divider
-        val divider = View(this).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                1
-            ).apply {
-                setMargins(0, 12, 0, 0)
-            }
-            setBackgroundColor(Color.parseColor("#1F000000"))
-        }
-
-        // Meta row
-        val metaRow = LinearLayout(this).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            ).apply {
-                setMargins(0, 12, 0, 0)
-            }
-            orientation = LinearLayout.HORIZONTAL
-            weightSum = 3f
-        }
-
-        // Add meta items
-        val terms = TextView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-            text = "${member.lokSabhaTerms}\nTerms"
-            gravity = android.view.Gravity.CENTER
-            textSize = 12f
-            setTextColor(Color.parseColor("#FF6B35"))
-            setTypeface(null, android.graphics.Typeface.BOLD)
-        }
-
-        val state = TextView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-            text = "State\n${member.state}"
-            gravity = android.view.Gravity.CENTER
-            textSize = 12f
-            setTextColor(Color.parseColor("#FF6B35"))
-            setTypeface(null, android.graphics.Typeface.BOLD)
-        }
-
-        val status = TextView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-            text = "Status\n${member.membershipStatus}"
-            gravity = android.view.Gravity.CENTER
-            textSize = 12f
-            setTextColor(Color.parseColor("#FF6B35"))
-            setTypeface(null, android.graphics.Typeface.BOLD)
-        }
-
-        metaRow.addView(terms)
-        metaRow.addView(state)
-        metaRow.addView(status)
-
-        // Add all views to card
-        cardContent.addView(headerRow)
-        cardContent.addView(divider)
-        cardContent.addView(metaRow)
-
-        cardView.addView(cardContent)
+        val repDesignation = "$designationText - ${member.constituency}"
+        cardView.findViewById<TextView>(R.id.repDesignation)?.text = repDesignation
+        cardView.findViewById<TextView>(R.id.repStatus)?.text = "• ${member.membershipStatus}"
 
         return cardView
     }
