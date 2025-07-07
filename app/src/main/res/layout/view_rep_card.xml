@@ -42,16 +42,22 @@
 
                 <TextView
                     android:id="@+id/repName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     style="@style/CC.TitleSmall"
                     android:text="Pankaj Singh"/>
 
                 <TextView
                     android:id="@+id/repDesignation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     style="@style/CC.BodySmall"
                     android:text="Member of Legislative Assembly"/>
 
                 <TextView
                     android:id="@+id/repStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     style="@style/CC.Caption"
                     android:textColor="@color/cc_positive"
                     android:text="• In Office"/>
