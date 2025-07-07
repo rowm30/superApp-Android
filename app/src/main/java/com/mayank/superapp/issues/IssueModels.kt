@@ -48,5 +48,7 @@ data class Issue(
     val images: List<String> = emptyList(),
     val distance: Float = Random.nextFloat() * 10f,
     val isFollowing: Boolean = false,
-    val hasUpvoted: Boolean = false
+    val hasUpvoted: Boolean = false,
+    /** Which representative will handle this issue */
+    val handler: String
 )

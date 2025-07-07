@@ -21,6 +21,8 @@ object MockIssueGenerator {
             "Sneha Gupta", "Raj Singh", "Anita Verma"
         )
 
+        val handlers = listOf("MP", "MLA", "DM")
+
         return List(count) { index ->
             Issue(
                 title = titles.random(),
@@ -37,7 +39,8 @@ object MockIssueGenerator {
                 reporterAvatar = "https://i.pravatar.cc/150?img=${Random.nextInt(70)}",
                 images = if (Random.nextBoolean())
                     listOf("https://picsum.photos/400/300?random=$index")
-                else emptyList()
+                else emptyList(),
+                handler = handlers.random()
             )
         }
     }

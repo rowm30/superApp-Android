@@ -27,6 +27,9 @@ class IssueAdapter(
             binding.tvTitle.text = item.title
             binding.tvStatus.text = item.status.name
             binding.tvReporter.text = item.reporterName
+            binding.tvHandler.text = "Handled by ${item.handler}"
+            binding.tvUpvotes.text = item.upvotes.toString()
+            binding.tvDownvotes.text = item.downvotes.toString()
             binding.root.setOnClickListener { onClick(item) }
         }
     }
