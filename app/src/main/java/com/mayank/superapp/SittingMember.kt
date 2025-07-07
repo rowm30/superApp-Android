@@ -11,5 +11,6 @@ data class SittingMember(
     val lokSabhaTerms: Int,
     val district: String?,
     val latitude: Double?,
-    val longitude: Double?
+    val longitude: Double?,
+    val designation: String? = null
 )
