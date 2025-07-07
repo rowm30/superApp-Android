@@ -112,14 +112,6 @@ class MainActivity : AppCompatActivity() {
                     loadUserProfile()
                     true
                 }
-                R.id.nav_issues -> {
-                    startActivity(Intent(this, com.mayank.superapp.issues.IssuesActivity::class.java))
-                    true
-                }
-                R.id.nav_services -> {
-                    startActivity(Intent(this, com.mayank.superapp.services.ServicesActivity::class.java))
-                    true
-                }
                 else -> {
                     findViewById<View>(R.id.profileTab).visibility = View.GONE
                     binding.scrollContent.visibility = View.VISIBLE
@@ -225,12 +217,6 @@ class MainActivity : AppCompatActivity() {
                 displayRepresentatives(sampleMembers)
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        // ensure the main tab is highlighted when returning from other screens
-        binding.bottomNav.selectedItemId = R.id.nav_officials
     }
 
     private fun updateConstituencyDisplay(constituency: String) {
