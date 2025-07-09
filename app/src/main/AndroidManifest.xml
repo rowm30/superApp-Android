@@ -30,6 +30,9 @@
             android:name="com.mayank.superapp.issues.IssueDetailActivity"
             android:exported="false" />
         <activity
+            android:name="com.mayank.superapp.issues.AddIssueActivity"
+            android:exported="false" />
+        <activity
             android:name="com.mayank.superapp.services.ServicesActivity"
             android:exported="false" />
         <activity
@@ -45,5 +48,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>

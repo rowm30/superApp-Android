@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mayank.superapp.databinding.ActivityIssuesBinding
 import androidx.lifecycle.lifecycleScope
+import com.mayank.superapp.issues.AddIssueActivity
 import kotlinx.coroutines.flow.collectLatest
 
 class IssuesActivity : AppCompatActivity() {
@@ -33,6 +34,10 @@ class IssuesActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
         binding.swipeRefresh.setOnRefreshListener { viewModel.loadIssues() }
+
+        binding.fabAddIssue.setOnClickListener {
+            startActivity(Intent(this, AddIssueActivity::class.java))
+        }
 
         lifecycleScope.launchWhenStarted {
             viewModel.uiState.collectLatest { state ->
