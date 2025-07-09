@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Civic Connect</string>
-</resources>
+    <string name="add_issue">Add Issue</string>
+    <string name="submit">Submit</string></resources>
