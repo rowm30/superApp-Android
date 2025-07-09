@@ -2,6 +2,7 @@ package com.mayank.superapp.issues
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -31,6 +32,16 @@ class IssueAdapter(
             binding.tvUpvotes.text = item.upvotes.toString()
             binding.tvDownvotes.text = item.downvotes.toString()
             binding.root.setOnClickListener { onClick(item) }
+
+            binding.btnUpvote.setOnClickListener {
+                val green = ContextCompat.getColor(binding.root.context, android.R.color.holo_green_dark)
+                binding.btnUpvote.setColorFilter(green)
+            }
+
+            binding.btnDownvote.setOnClickListener {
+                val red = ContextCompat.getColor(binding.root.context, android.R.color.holo_red_dark)
+                binding.btnDownvote.setColorFilter(red)
+            }
         }
     }
 
