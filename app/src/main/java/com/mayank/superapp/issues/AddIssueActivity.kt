@@ -1,8 +1,11 @@
 package com.mayank.superapp.issues
 
+import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.mayank.superapp.databinding.ActivityAddIssueBinding
 
@@ -10,6 +13,16 @@ import com.mayank.superapp.databinding.ActivityAddIssueBinding
 class AddIssueActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddIssueBinding
+    private var imageUri: Uri? = null
+    private val pickImageLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            imageUri = it
+            binding.ivPreview.setImageURI(it)
+            binding.ivPreview.visibility = View.VISIBLE
+            binding.btnRemoveImage.visibility = View.VISIBLE
+            binding.btnAttachImage.text = getString(R.string.change_image)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,6 +33,18 @@ class AddIssueActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setupSpinners()
+
+        binding.btnAttachImage.setOnClickListener {
+            pickImageLauncher.launch("image/*")
+        }
+
+        binding.btnRemoveImage.setOnClickListener {
+            imageUri = null
+            binding.ivPreview.setImageDrawable(null)
+            binding.ivPreview.visibility = View.GONE
+            binding.btnRemoveImage.visibility = View.GONE
+            binding.btnAttachImage.text = getString(R.string.attach_image)
+        }
 
         binding.btnSubmit.setOnClickListener {
             submitIssue()
@@ -54,7 +79,12 @@ class AddIssueActivity : AppCompatActivity() {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
-        Toast.makeText(this, "Issue submitted", Toast.LENGTH_SHORT).show()
+        val message = if (imageUri != null) {
+            "Issue submitted with image"
+        } else {
+            "Issue submitted"
+        }
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         finish()
     }
 
