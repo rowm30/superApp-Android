@@ -46,8 +46,8 @@
 
             <ImageView
                 android:id="@+id/btnUpvote"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@android:drawable/arrow_up_float" />
 
             <TextView
@@ -59,8 +59,8 @@
 
             <ImageView
                 android:id="@+id/btnDownvote"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_marginStart="16dp"
                 android:src="@android:drawable/arrow_down_float" />
 
