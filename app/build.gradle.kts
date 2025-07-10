@@ -59,5 +59,8 @@ dependencies {
     implementation(libs.converter.gson.v290)
     implementation(libs.logging.interceptor.v4110)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.fragment.ktx)
+    implementation(libs.androidx.swiperefreshlayout)
 
 }
