@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Civic Connect</string>
     <string name="add_issue">Add Issue</string>
-    <string name="submit">Submit</string></resources>
+    <string name="submit">Submit</string>
+    <string name="attach_image">Attach Image</string>
+    <string name="change_image">Change Image</string>
+    <string name="remove_image">Remove Image</string>
+</resources>
