@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.mayank.superapp.RetrofitClient
 import com.mayank.superapp.databinding.ActivityAddIssueBinding
+import com.mayank.superapp.issues.IssueReportRequest
+import kotlinx.coroutines.launch
 
 /** Activity for creating a new issue */
 class AddIssueActivity : AppCompatActivity() {
@@ -54,8 +58,34 @@ class AddIssueActivity : AppCompatActivity() {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show()
             return
         }
-        Toast.makeText(this, "Issue submitted", Toast.LENGTH_SHORT).show()
-        finish()
+
+        val roads = binding.spinnerCategory.selectedItem.toString()
+        val low = binding.spinnerPriority.selectedItem.toString()
+        val mp = binding.spinnerHandler.selectedItem.toString()
+
+        val request = IssueReportRequest(
+            title = title,
+            description = description,
+            roads = roads,
+            low = low,
+            mp = mp,
+            image = ""
+        )
+
+        lifecycleScope.launch {
+            try {
+                val response = RetrofitClient.reportService.submitReport(request)
+                if (response.isSuccessful) {
+                    val message = response.body()?.message ?: "Issue submitted"
+                    Toast.makeText(this@AddIssueActivity, message, Toast.LENGTH_SHORT).show()
+                    finish()
+                } else {
+                    Toast.makeText(this@AddIssueActivity, "Failed: ${'$'}{response.code()}", Toast.LENGTH_SHORT).show()
+                }
+            } catch (e: Exception) {
+                Toast.makeText(this@AddIssueActivity, "Error: ${'$'}{e.localizedMessage}", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     override fun onOptionsItemSelected(item: android.view.MenuItem): Boolean {
